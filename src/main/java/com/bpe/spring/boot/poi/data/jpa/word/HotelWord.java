@@ -17,7 +17,7 @@
 package com.bpe.spring.boot.poi.data.jpa.word;
 
 
-import org.apache.poi.hwpf.HWPFDocument;
+import com.bpe.spring.boot.poi.data.jpa.domain.Hotel;
 import org.apache.poi.xwpf.usermodel.Borders;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -25,23 +25,17 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.Writer;
 
 
-public final class Word2Forrest
+public final class HotelWord
 {
-  Writer _out;
-  HWPFDocument _doc;
-
-
-  public Word2Forrest(HWPFDocument doc, OutputStream stream) throws Exception {
+  public void writeDoc(Hotel hotel) throws Exception {
     //Blank Document
     XWPFDocument document= new XWPFDocument();
 
     //Write the Document in file system
     FileOutputStream out = new FileOutputStream(
-            new File("applyingborder.docx"));
+            new File("outbox/hotel.docx"));
 
     //create paragraph
     XWPFParagraph paragraph = document.createParagraph();
@@ -59,14 +53,11 @@ public final class Word2Forrest
     paragraph.setBorderTop(Borders.BASIC_BLACK_DASHES);
 
     XWPFRun run=paragraph.createRun();
-    run.setText("At tutorialspoint.com, we strive hard to " +
-            "provide quality tutorials for self-learning " +
-            "purpose in the domains of Academics, Information " +
-            "Technology, Management and Computer Programming " +
-            "Languages.");
+    run.setText("Hotel: "+hotel.getName());
 
     document.write(out);
     out.close();
-    System.out.println("applyingborder.docx written successully");
+    System.out.println("hotel.docx written successully");
   }
+
 }
